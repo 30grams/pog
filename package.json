@@ -1,0 +1,10 @@
+{
+  "name": "y",
+  "version": "0.0",
+  "description": "Path to glory minigame",
+  "main": "index.thml",
+  "repository": "tbd",
+  "author": "30grams <thirtygrams@gmail.com>",
+  "license": "MIT",
+  "private": true
+}
