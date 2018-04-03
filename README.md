@@ -1,18 +1,31 @@
-Path Of Glory
-============
+#Path Of Glory
 
 > A minigame inspired from Games's Workshop "Path to Glory" skirmish rules
 > 
 
-# Build
-## install yarn and npm
-you can find both from the [yarn](https://yarnpkg.com/en/docs/install) and [node](https://nodejs.org/en/) websites respectively.
+## Build
 
-## dependencies
-simply type `yarn` in the terminal from this forlder.
+**Initialize the environment**
+
+1\. Clone the repository:
+
+```
+git clone https://github.com/30grams/pog.git
+```
+
+2\. Install the dependencies:
+
+```bash
+npm install
+```
 
 
+**Launch the app**
 
----
+1\. Run the development server:
 
-_april 2018_
+```bash
+npm start
+```
+
+2\. Open [localhost:8080](http://localhost:8080) to see the live app.
