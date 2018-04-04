@@ -1,4 +1,4 @@
-#Path Of Glory
+# Path Of Glory
 
 > A minigame inspired from Games's Workshop "Path to Glory" skirmish rules
 > 
