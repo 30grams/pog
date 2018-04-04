@@ -9,7 +9,8 @@
     "watch": "webpack --watch",
     "server": "node server.js",
     "build": "webpack --config webpack.prod.js",
-    "deploy": "npm run build && git subtree push --prefix dist origin gh-pages"
+    "deploy": "npm run build && git subtree push -f --prefix dist origin gh-pages",
+    "deploy-force": "npm run build && git add dist -f && git commit -am'save' && git subtree push -f --prefix dist origin gh-pages"
   },
   "keywords": [],
   "author": "",
