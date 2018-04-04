@@ -1,5 +1,8 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
+# Production
+dist/
+
 # Dependencies
 node_modules/
 webpack.config.js
