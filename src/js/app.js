@@ -2,7 +2,7 @@ import '../css/style.css';
 import setup from './game.js';
 
 if (process.env.NODE_ENV !== 'production') {
-  console.log('Looks like we are in development mode!');
+  console.log('Looks like we are in development mode, Beppy!');
 }
 
 var container = document.createElement('div');
