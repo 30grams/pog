@@ -86,7 +86,7 @@ export function init()
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   // to antialias the shadow
 
-  container = window.document.getElementById( 'container' );
+  let container = document.getElementById( 'container' );
   container.appendChild( renderer.domElement );
 
   // FPS
