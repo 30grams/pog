@@ -8,7 +8,7 @@ export default function populate(scene) {
 
   // TILES
   let tileGeometry = new CylinderGeometry( tileRadius, tileRadius, tileHeight, 6, 1 );
-  let material = new MeshLambertMaterial( { color: 0x77dd77, flatShading: true, overdraw: 0.5, wireframe: false, shininess: 0 } );
+  let material = new MeshLambertMaterial( { color: 0x77dd77, flatShading: true, overdraw: 0.5} );
 
   tileGeometry.computeFlatVertexNormals();
 
