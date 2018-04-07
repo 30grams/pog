@@ -1,6 +1,8 @@
 // Hexagonal tiles
 // Pointy topped - ref https://www.redblobgames.com/grids/hexagons/
 
+'use strict';
+
 const radius;
 
 let cube_add = (a, b) => ({
@@ -34,17 +36,48 @@ let pixel_to_hex = (x,y) => (
   })
 );
 
-// NEIGHBOURS
+// NEIGHBOURS - CUBE
+const cube_directions = [
+  // precompute the permutations
+  [+1, -1,  0],
+  [+1,  0, -1],
+  [ 0, +1, -1],
+  [-1, +1,  0],
+  [-1,  0, +1],
+  [ 0, -1, +1]
+];
+
+let cube_direction = direction => cube_directions[direction];
+
+let cube_neighbor = (cube, direction) => {
+  // Object.values(object1) ..maybe?
+  let dir = cube_direction[direction]; 
+  return {
+    cube.x + dir.[0],
+    cube.y + dir.[1],
+    cube.z + dir.[2]
+  }
+}
+    
+// NEIGHBOURS - HEX
 const axial_directions = [
-   {1,  0}, {+1, -1}, { 0, -1},
-   {-1, 0}, {-1, +1}, { 0, +1}
-];   // precompute the permutations
+  // precompute the permutations
+  [ 1,  0],
+  [+1, -1],
+  [ 0, -1],
+  [-1,  0], 
+  [-1, +1], 
+  [ 0, +1]
+]; 
 
 let hex_direction = direction => axial_directions[direction];
 
 let hex_neighbor = (hex, direction) => {
   let dir = hex_direction[direction];
-  return {hex.q + dir.q, hex.r + dir.r}
+  return {
+    hex.q + dir[0],
+    hex.r + dir[1]
+  }
 };
 
 let hex_neighbors = hex => {
@@ -61,7 +94,7 @@ let cube_distance = (a, b) => Math.max(
   Math.abs(a.x - b.x), Math.abs(a.y - b.y), Math.abs(a.z - b.z)
 );
 
-let hex_distance = (a,b) > cube_distance(
+let hex_distance = (a, b) > cube_distance(
   axial_to_cube(a), axial_to_cube(b)
 );
 
@@ -108,10 +141,10 @@ let cube_linedraw = (a, b) => {
     
 // RANGE
 let cube_inrange = (center, N) => {
-  var results = [] // range
-  for (let dx = -Math.floor(N), dx ≤ N, dx++) {
-    for (let dy = -Math.floor(Math.min(N, N+dx)), dx ≤ Math.min(N, -dx+N), dy++) {
-      results.append(cube_add(center, {
+  var results = [];
+  for (let dx = -Math.floor(N); dx ≤ N; dx++) {
+    for (let dy = -Math.floor(Math.min(N, N+dx)); dx ≤ Math.min(N, -dx+N); dy++) {
+      results.push(cube_add(center, {
         dx,
         dy,
         -dx-dy
@@ -121,28 +154,40 @@ let cube_inrange = (center, N) => {
   return results
 }
 
-var results = [] // overlap
-for each xmin ≤ x ≤ xmax:
-    for each max(ymin, -x-zmax) ≤ y ≤ min(ymax, -x-zmin):
-        var z = -x-y
-        results.append(Cube(x, y, z))
+// OVERLAP
+let cube_overlap = (xmin, xmax, ymin, ymax, zmin, zmax) => {
+  var results = [];
+  for (let x = Math.floor(xmin); x ≤ xmax; x++) {
+    for (let y = Math.floor(Math.max(ymin, -x-zmax)); y ≤ Math.min(ymax, -x-zmin); y++) {
+      results.push(Cube(x, y, -x-y))
+    }
+  }
+}
 
-function cube_reachable(start, movement): // range with obstacles
-    var visited = set()
-    add start to visited
-    var fringes = []
-    fringes.append([start])
+// RANGE & OBSTACLES
+function cube_reachable(start, maxsteps) {
+  // Width-first search
 
-    for each 1 < k ≤ movement:
-        fringes.append([])
-        for each cube in fringes[k-1]:
-            for each 0 ≤ dir < 6:
-                var neighbor = cube_neighbor(cube, dir)
-                if neighbor not in visited, not blocked:
-                    add neighbor to visited
-                    fringes[k].append(neighbor)
+  var visited = new Set([start]);
+  // store visited cubes objects in a Set
+  var fringes = [[start]];
 
-    return visited
+  for (let k =  1; k ≤ maxsteps; k++) {
+    fringes.push([]);
+    for (var cube in fringes[k-1]) {
+      for (let dir = 0; dir < 6; dir++) {
+        let neighbor = cube_neighbor(cube, dir);
+        if (!visited.has(neighbor) && !is_blocked) {
+          // not visited nor blocked
+          visited.add(neighbor);
+          fringes[k].push(neighbor);
+        }
+      }
+    }
+  }
+
+  return visited
+}
 
 // FIELD OF VIEW
   // The simplest way to do this is to draw a line to every hex that’s in range. If the line doesn’t hit any walls, then you can see the hex        
@@ -151,6 +196,5 @@ function cube_reachable(start, movement): // range with obstacles
 // PATHFINDING
   // If you’re using graph-based pathfinding such as A* or Dijkstra’s algorithm or Floyd-Warshall, pathfinding on hex grids isn’t different from pathfinding on square grids
 
-// Map storage
 
 

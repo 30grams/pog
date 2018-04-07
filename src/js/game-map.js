@@ -1,4 +1,5 @@
 import { CylinderGeometry , Mesh, MeshLambertMaterial } from 'three';
+import generateMap from'./game-map-seed.js';
 
 const tileRadius = 1, 
  tileDepth = 5;
@@ -15,9 +16,28 @@ export default function populate(scene) {
 
   tileGeometry.computeFlatVertexNormals();
 
+  // MAP
+  let tileMap = generateMap('pepe');
 
-  for ( var i = -2; i < 3; i += 1 ) {
-    for ( var j = -2; j < 3; j += 1 ) {
+/*
+  tileMap.forEach(function(el, i) {
+    el.forEach(function(el, j) {
+      // axial coordinates
+
+      var tile = new Mesh( tileGeometry, material );
+      tile.position.x = tileWidth * ( i + j / 2 ); 
+      tile.position.z = tileHeight * 3/4 * j; 
+      tile.position.y = ( -Math.floor(Math.random() * 5) * 0.2) - tileDepth/2; 
+
+      tile.castShadow = true;
+      tile.receiveShadow = true;
+      scene.add( tile );
+    })
+  });
+*/
+
+  for ( var i = -Math.round(tileMap.length / 2); i < tileMap.length - Math.round(tileMap.length / 2); i++ ) {
+    for ( var j = -Math.round(tileMap[0].length / 2); j < tileMap[0].length - Math.round(tileMap[0].length / 2); j++ ) {
       // axial coordinates
 
       var tile = new Mesh( tileGeometry, material );
@@ -30,4 +50,5 @@ export default function populate(scene) {
       scene.add( tile );
     }
   }
+  
 }
