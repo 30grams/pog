@@ -1,5 +1,5 @@
 import { CylinderGeometry , Mesh, MeshLambertMaterial } from 'three';
-import generateMap from'./game-map-seed.js';
+import generateMap from'./data-seed.js';
 
 const tileRadius = 1, 
  tileDepth = 5;

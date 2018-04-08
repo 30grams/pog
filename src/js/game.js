@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import Stats from './scripts/stats.min.js';
-import populate from './game-map.js'
+import populate from './draw-map.js'
 import './scripts/TrackballControls.js';
 
 let camera, controls, scene, renderer, stats;
