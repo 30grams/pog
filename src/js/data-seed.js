@@ -19,7 +19,7 @@ String.prototype.hashCode = function() {
 };
 
 // SEEDING
-export default function generateMap(seed) {
+export function generateMap(seed) {
   if (!seed) {
     seed = Math.random.toString();
   }

@@ -1,5 +1,6 @@
 import { CylinderGeometry , Mesh, MeshLambertMaterial } from 'three';
-import generateMap from'./data-seed.js';
+import {generateMap} from './data-seed.js';
+import {flatMaterial} from './draw-textures.js';
 
 const tileRadius = 1, 
  tileDepth = 5;
@@ -12,7 +13,7 @@ export default function populate(scene) {
 
   // TILES
   let tileGeometry = new CylinderGeometry( tileRadius, tileRadius, tileDepth, 6, 1 );
-  let material = new MeshLambertMaterial( { color: 0x77dd77, flatShading: true, overdraw: 0.5} );
+  let material = new MeshLambertMaterial( { color: 0x77dd77, flatShading: true} );
 
   tileGeometry.computeFlatVertexNormals();
 
@@ -40,7 +41,7 @@ export default function populate(scene) {
     for ( var j = -Math.round(tileMap[0].length / 2); j < tileMap[0].length - Math.round(tileMap[0].length / 2); j++ ) {
       // axial coordinates
 
-      var tile = new Mesh( tileGeometry, material );
+      var tile = new Mesh( tileGeometry, flatMaterial() );
       tile.position.x = tileWidth * ( i + j / 2 ); 
       tile.position.z = tileHeight * 3/4 * j; 
       tile.position.y = ( -Math.floor(Math.random() * 5) * 0.2) - tileDepth/2; 
