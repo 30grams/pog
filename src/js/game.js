@@ -85,6 +85,7 @@ export function init()
   renderer = new THREE.WebGLRenderer();
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize( window.innerWidth, window.innerHeight );
+  // on the long term use Viewport... https://stackoverflow.com/a/15594768
 
   // SHADOWS
   renderer.shadowMap.enabled = true;
