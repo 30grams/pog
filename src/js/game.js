@@ -172,19 +172,19 @@ function update() {
     if (intersects[0].object != INTERSECTED) {
       // restore previous intersection object (if it exists) to its original color
       if (INTERSECTED)
-        INTERSECTED.material.color.setHex(INTERSECTED.currentHex);
+//        INTERSECTED.material.color.setHex(INTERSECTED.currentHex);
       // store reference to closest object as current intersection object
       INTERSECTED = intersects[0].object;
       // store color of closest object (for later restoration)
-      INTERSECTED.currentHex = INTERSECTED.material.color.getHex();
+//      INTERSECTED.currentHex = INTERSECTED.material.color.getHex();
       // set a new color for closest object
-      INTERSECTED.material.color.setHex(0xffff00);
+//      INTERSECTED.material.color.setHex(0xffff00);
     }
   } else // there are no intersections
   {
     // restore previous intersection object (if it exists) to its original color
     if (INTERSECTED)
-      INTERSECTED.material.color.setHex(INTERSECTED.currentHex);
+//      INTERSECTED.material.color.setHex(INTERSECTED.currentHex);
     // remove previous intersection object reference
     //     by setting current intersection object to "nothing"
     INTERSECTED = null;
